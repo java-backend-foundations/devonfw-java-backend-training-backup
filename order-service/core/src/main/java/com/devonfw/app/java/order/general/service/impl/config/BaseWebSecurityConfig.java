@@ -79,6 +79,9 @@ public abstract class BaseWebSecurityConfig extends WebSecurityConfigurerAdapter
         //.csrf().requireCsrfProtectionMatcher(new CsrfRequestMatcher()).and()
         .csrf().disable().httpBasic().and()
 
+        // to fix problem with h2 console
+        .headers().frameOptions().sameOrigin().and()
+
         // configure parameters for simple form login (and logout)
         .formLogin().successHandler(new SimpleUrlAuthenticationSuccessHandler()).defaultSuccessUrl("/")
         .failureUrl("/login.html?error").loginProcessingUrl("/j_spring_security_login").usernameParameter("username")
