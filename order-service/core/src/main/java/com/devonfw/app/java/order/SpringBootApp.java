@@ -10,7 +10,8 @@ import com.devonfw.module.jpa.dataaccess.api.AdvancedRevisionEntity;
 import com.devonfw.module.jpa.dataaccess.impl.data.GenericRepositoryFactoryBean;
 
 /**
- * Main entry point of this {@link SpringBootApplication}. Simply run this class to start this app.
+ * Main entry point of this {@link SpringBootApplication}. Simply run this class
+ * to start this app.
  */
 @SpringBootApplication
 @EntityScan(basePackages = { "com.devonfw.app.java.order" }, basePackageClasses = { AdvancedRevisionEntity.class })
@@ -18,13 +19,13 @@ import com.devonfw.module.jpa.dataaccess.impl.data.GenericRepositoryFactoryBean;
 @EnableGlobalMethodSecurity(jsr250Enabled = true)
 public class SpringBootApp {
 
-  /**
-   * Entry point for spring-boot based app
-   *
-   * @param args - arguments
-   */
-  public static void main(String[] args) {
+	/**
+	 * Entry point for spring-boot based app
+	 *
+	 * @param args - arguments
+	 */
+	public static void main(String[] args) {
 
-    SpringApplication.run(SpringBootApp.class, args);
-  }
+		SpringApplication.run(SpringBootApp.class, args);
+	}
 }
