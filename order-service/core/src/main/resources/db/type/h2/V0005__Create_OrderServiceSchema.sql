@@ -34,9 +34,6 @@ CREATE TABLE OrderSummary (
 CREATE TABLE OrderPosition (
   orderId   BIGINT NOT NULL,
   itemId	BIGINT NOT NULL,
-  price DOUBLE,
-  itemCount INT NOT NULL DEFAULT 1,
-  CONSTRAINT UC_OrderPosition_orderitem UNIQUE(orderId, itemId),
   CONSTRAINT FK_OrderPosition_order FOREIGN KEY(orderId) REFERENCES OrderSummary(id),
   CONSTRAINT FK_OrderPosition_item FOREIGN KEY(itemId) REFERENCES Item(id)
 );
