@@ -12,15 +12,18 @@ public class ItemSearchCriteriaTo extends AbstractSearchCriteriaTo {
 	private static final long serialVersionUID = 1L;
 
 	private String name;
+
 	private String description;
+
 	private Double price;
+
 	private StringSearchConfigTo nameOption;
+
 	private StringSearchConfigTo descriptionOption;
 
 	/**
 	 * @return nameId
 	 */
-
 	public String getName() {
 		return name;
 	}
@@ -28,7 +31,6 @@ public class ItemSearchCriteriaTo extends AbstractSearchCriteriaTo {
 	/**
 	 * @param name setter for name attribute
 	 */
-
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -36,7 +38,6 @@ public class ItemSearchCriteriaTo extends AbstractSearchCriteriaTo {
 	/**
 	 * @return descriptionId
 	 */
-
 	public String getDescription() {
 		return description;
 	}
@@ -44,7 +45,6 @@ public class ItemSearchCriteriaTo extends AbstractSearchCriteriaTo {
 	/**
 	 * @param description setter for description attribute
 	 */
-
 	public void setDescription(String description) {
 		this.description = description;
 	}
@@ -52,7 +52,6 @@ public class ItemSearchCriteriaTo extends AbstractSearchCriteriaTo {
 	/**
 	 * @return priceId
 	 */
-
 	public Double getPrice() {
 		return price;
 	}
@@ -60,7 +59,6 @@ public class ItemSearchCriteriaTo extends AbstractSearchCriteriaTo {
 	/**
 	 * @param price setter for price attribute
 	 */
-
 	public void setPrice(Double price) {
 		this.price = price;
 	}
