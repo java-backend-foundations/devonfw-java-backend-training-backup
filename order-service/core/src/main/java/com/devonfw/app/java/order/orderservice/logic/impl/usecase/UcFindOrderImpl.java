@@ -1,6 +1,8 @@
 package com.devonfw.app.java.order.orderservice.logic.impl.usecase;
 
+import java.time.LocalDate;
 import java.util.Optional;
+import java.util.Set;
 
 import javax.inject.Named;
 
@@ -10,6 +12,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
+import com.devonfw.app.java.order.orderservice.common.api.OrderStatus;
 import com.devonfw.app.java.order.orderservice.dataaccess.api.OrderEntity;
 import com.devonfw.app.java.order.orderservice.logic.api.to.OrderEto;
 import com.devonfw.app.java.order.orderservice.logic.api.to.OrderSearchCriteriaTo;
@@ -41,6 +44,12 @@ public class UcFindOrderImpl extends AbstractOrderUc implements UcFindOrder {
 	public Page<OrderEto> findOrders(OrderSearchCriteriaTo criteria) {
 		Page<OrderEntity> orders = getOrderRepository().findByCriteria(criteria);
 		return mapPaginatedEntityList(orders, OrderEto.class);
+	}
+
+	@Override
+	public Set<OrderEto> findOrdersByCreationDateAndStatus(LocalDate creationDate, OrderStatus status){
+		return getBeanMapper().mapSet(getOrderRepository()
+				.findAllByCreationDateAndStatus(creationDate, status), OrderEto.class);
 	}
 
 }

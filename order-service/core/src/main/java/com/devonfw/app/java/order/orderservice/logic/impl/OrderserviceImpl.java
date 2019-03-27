@@ -1,5 +1,7 @@
 package com.devonfw.app.java.order.orderservice.logic.impl;
 
+import java.time.LocalDate;
+import java.util.Objects;
 import java.util.Set;
 
 import javax.inject.Inject;
@@ -11,11 +13,15 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
 import com.devonfw.app.java.order.general.logic.base.AbstractComponentFacade;
+import com.devonfw.app.java.order.orderservice.common.api.OrderStatus;
+import com.devonfw.app.java.order.orderservice.dataaccess.api.CustomerEntity;
+import com.devonfw.app.java.order.orderservice.dataaccess.api.OrderEntity;
 import com.devonfw.app.java.order.orderservice.logic.api.Orderservice;
 import com.devonfw.app.java.order.orderservice.logic.api.to.CustomerEto;
 import com.devonfw.app.java.order.orderservice.logic.api.to.CustomerSearchCriteriaTo;
 import com.devonfw.app.java.order.orderservice.logic.api.to.ItemEto;
 import com.devonfw.app.java.order.orderservice.logic.api.to.ItemSearchCriteriaTo;
+import com.devonfw.app.java.order.orderservice.logic.api.to.OrderCto;
 import com.devonfw.app.java.order.orderservice.logic.api.to.OrderEto;
 import com.devonfw.app.java.order.orderservice.logic.api.to.OrderSearchCriteriaTo;
 import com.devonfw.app.java.order.orderservice.logic.api.usecase.UcFindCustomer;
@@ -24,6 +30,7 @@ import com.devonfw.app.java.order.orderservice.logic.api.usecase.UcFindOrder;
 import com.devonfw.app.java.order.orderservice.logic.api.usecase.UcManageCustomer;
 import com.devonfw.app.java.order.orderservice.logic.api.usecase.UcManageItem;
 import com.devonfw.app.java.order.orderservice.logic.api.usecase.UcManageOrder;
+import com.devonfw.app.java.order.orderservice.logic.api.usecase.UcManageOrderCto;
 import com.devonfw.module.basic.common.api.query.StringSearchConfigTo;
 import com.devonfw.module.basic.common.api.query.StringSearchOperator;
 
@@ -51,10 +58,13 @@ public class OrderserviceImpl extends AbstractComponentFacade implements Orderse
 	@Inject
 	private UcManageItem ucManageItem;
 
+	@Inject
+	private UcManageOrderCto ucManageOrderCto;
+
 	@Override
 	public OrderEto findOrder(long id) {
 
-		return this.ucFindOrder.findOrder(id);
+		return ucFindOrder.findOrder(id);
 	}
 
 	@Override
@@ -121,8 +131,7 @@ public class OrderserviceImpl extends AbstractComponentFacade implements Orderse
 
 	@Override
 	public Page<ItemEto> findItemsWithNameLikeOrdered(String name){
-		ItemSearchCriteriaTo criteria = createDefaultSearchCriteria(name);
-		return ucFindItem.findItems(criteria);
+		return ucFindItem.findItemsWithNameLikeOrdered(name);
 	}
 
 	@Override
@@ -132,23 +141,23 @@ public class OrderserviceImpl extends AbstractComponentFacade implements Orderse
 
 	@Override
 	public void raiseItemPriceByOne(String name) {
-		Set<ItemEto> itemsToReprice = ucFindItem.findByName(name);
-		itemsToReprice.stream().forEach(item -> item.setPrice(item.getPrice() + 1.0));
-		itemsToReprice.stream().forEach(item -> ucManageItem.saveItem(item));
+		ucManageItem.raiseItemPriceByOne(name);
 	}
 
-	private ItemSearchCriteriaTo createDefaultSearchCriteria(String name) {
-		StringSearchOperator syntax = StringSearchOperator.LIKE;
-		StringSearchConfigTo nameOption = StringSearchConfigTo.of(syntax);
-		nameOption.setIgnoreCase(true);
-		nameOption.setMatchSubstring(true);
-		ItemSearchCriteriaTo criteria = new ItemSearchCriteriaTo();
-		criteria.setName(name);
-		criteria.setNameOption(nameOption);
-		Sort sort = Sort.by("name");
-		Pageable pageable = PageRequest.of(0, 20, sort);
-		criteria.setPageable(pageable);
-		return criteria;
+	@Override
+	public Set<OrderEto> findOrdersByCreationDateAndStatus(LocalDate creationDate, OrderStatus status) {
+		return ucFindOrder.findOrdersByCreationDateAndStatus(creationDate, status);
+	}
+
+	@Override
+	public OrderCto saveOrder(OrderCto order) {
+		return ucManageOrderCto.saveOrder(order);
+	}
+
+	@Override
+	public OrderCto findOrderCto(Long id) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

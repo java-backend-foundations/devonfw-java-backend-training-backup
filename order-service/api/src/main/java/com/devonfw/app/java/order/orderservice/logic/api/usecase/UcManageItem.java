@@ -1,5 +1,7 @@
 package com.devonfw.app.java.order.orderservice.logic.api.usecase;
 
+import org.springframework.data.domain.Page;
+
 import com.devonfw.app.java.order.orderservice.logic.api.to.ItemEto;
 
 /**
@@ -24,5 +26,9 @@ public interface UcManageItem {
 	 * @return the new {@link ItemEto} that has been saved with ID and version.
 	 */
 	ItemEto saveItem(ItemEto item);
+
+	void raiseItemPriceByOne(String name);
+
+
 
 }

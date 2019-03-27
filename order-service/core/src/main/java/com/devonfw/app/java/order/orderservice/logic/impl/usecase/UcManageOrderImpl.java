@@ -1,6 +1,7 @@
 package com.devonfw.app.java.order.orderservice.logic.impl.usecase;
 
 import java.util.Objects;
+import java.util.Set;
 
 import javax.inject.Named;
 
@@ -9,7 +10,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
+import com.devonfw.app.java.order.orderservice.dataaccess.api.CustomerEntity;
 import com.devonfw.app.java.order.orderservice.dataaccess.api.OrderEntity;
+import com.devonfw.app.java.order.orderservice.logic.api.to.ItemEto;
+import com.devonfw.app.java.order.orderservice.logic.api.to.OrderCto;
 import com.devonfw.app.java.order.orderservice.logic.api.to.OrderEto;
 import com.devonfw.app.java.order.orderservice.logic.api.usecase.UcManageOrder;
 import com.devonfw.app.java.order.orderservice.logic.base.usecase.AbstractOrderUc;
@@ -46,4 +50,5 @@ public class UcManageOrderImpl extends AbstractOrderUc implements UcManageOrder 
 		LOG.debug("Order with id '{}' has been created.", resultEntity.getId());
 		return getBeanMapper().map(resultEntity, OrderEto.class);
 	}
+
 }

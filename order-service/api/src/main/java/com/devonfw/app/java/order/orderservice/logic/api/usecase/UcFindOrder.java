@@ -1,9 +1,12 @@
 package com.devonfw.app.java.order.orderservice.logic.api.usecase;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.data.domain.Page;
 
+import com.devonfw.app.java.order.orderservice.common.api.OrderStatus;
 import com.devonfw.app.java.order.orderservice.logic.api.to.OrderEto;
 import com.devonfw.app.java.order.orderservice.logic.api.to.OrderSearchCriteriaTo;
 
@@ -24,5 +27,7 @@ public interface UcFindOrder {
 	 * @return the {@link List} of matching {@link OrderEto}s.
 	 */
 	Page<OrderEto> findOrders(OrderSearchCriteriaTo criteria);
+
+	Set<OrderEto> findOrdersByCreationDateAndStatus(LocalDate creationDate, OrderStatus status);
 
 }

@@ -28,4 +28,6 @@ public interface UcFindItem {
 
 	Set<ItemEto> findByName(String name);
 
+	Page<ItemEto> findItemsWithNameLikeOrdered(String name);
+
 }

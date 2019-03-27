@@ -1,6 +1,7 @@
 package com.devonfw.app.java.order.orderservice.logic.impl.usecase;
 
 import java.util.Objects;
+import java.util.Set;
 
 import javax.inject.Named;
 
@@ -10,7 +11,9 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
 import com.devonfw.app.java.order.orderservice.dataaccess.api.ItemEntity;
+import com.devonfw.app.java.order.orderservice.dataaccess.api.repo.ItemRepository;
 import com.devonfw.app.java.order.orderservice.logic.api.to.ItemEto;
+import com.devonfw.app.java.order.orderservice.logic.api.to.ItemSearchCriteriaTo;
 import com.devonfw.app.java.order.orderservice.logic.api.usecase.UcManageItem;
 import com.devonfw.app.java.order.orderservice.logic.base.usecase.AbstractItemUc;
 
@@ -45,5 +48,12 @@ public class UcManageItemImpl extends AbstractItemUc implements UcManageItem {
 		ItemEntity resultEntity = getItemRepository().save(itemEntity);
 		LOG.debug("Item with id '{}' has been created.", resultEntity.getId());
 		return getBeanMapper().map(resultEntity, ItemEto.class);
+	}
+
+	@Override
+	public void raiseItemPriceByOne(String name) {
+		Set<ItemEto> itemsToReprice = getBeanMapper().mapSet(getItemRepository().findByName(name), ItemEto.class);
+		itemsToReprice.stream().forEach(item -> item.setPrice(item.getPrice() + 1.0));
+		itemsToReprice.stream().forEach(item -> this.saveItem(item));
 	}
 }

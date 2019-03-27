@@ -8,6 +8,9 @@ import javax.inject.Named;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
@@ -16,6 +19,8 @@ import com.devonfw.app.java.order.orderservice.logic.api.to.ItemEto;
 import com.devonfw.app.java.order.orderservice.logic.api.to.ItemSearchCriteriaTo;
 import com.devonfw.app.java.order.orderservice.logic.api.usecase.UcFindItem;
 import com.devonfw.app.java.order.orderservice.logic.base.usecase.AbstractItemUc;
+import com.devonfw.module.basic.common.api.query.StringSearchConfigTo;
+import com.devonfw.module.basic.common.api.query.StringSearchOperator;
 
 import io.micrometer.shaded.org.pcollections.MapPSet;
 
@@ -50,6 +55,26 @@ public class UcFindItemImpl extends AbstractItemUc implements UcFindItem {
 	public Set<ItemEto> findByName(String name){
 		Set<ItemEntity> items = getItemRepository().findByName(name);
 		return getBeanMapper().mapSet(items, ItemEto.class);
+	}
+
+	@Override
+	public Page<ItemEto> findItemsWithNameLikeOrdered(String name) {
+		ItemSearchCriteriaTo criteria = createDefaultSearchCriteria(name);
+		return this.findItems(criteria);
+	}
+
+	private ItemSearchCriteriaTo createDefaultSearchCriteria(String name) {
+		StringSearchOperator syntax = StringSearchOperator.LIKE;
+		StringSearchConfigTo nameOption = StringSearchConfigTo.of(syntax);
+		nameOption.setIgnoreCase(true);
+		nameOption.setMatchSubstring(true);
+		ItemSearchCriteriaTo criteria = new ItemSearchCriteriaTo();
+		criteria.setName(name);
+		criteria.setNameOption(nameOption);
+		Sort sort = Sort.by("name");
+		Pageable pageable = PageRequest.of(0, 20, sort);
+		criteria.setPageable(pageable);
+		return criteria;
 	}
 
 }

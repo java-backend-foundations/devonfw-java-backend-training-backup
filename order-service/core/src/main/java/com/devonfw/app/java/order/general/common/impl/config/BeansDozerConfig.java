@@ -1,6 +1,7 @@
 package com.devonfw.app.java.order.general.common.impl.config;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.dozer.DozerBeanMapper;
