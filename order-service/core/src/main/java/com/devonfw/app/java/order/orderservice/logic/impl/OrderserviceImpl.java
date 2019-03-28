@@ -1,21 +1,15 @@
 package com.devonfw.app.java.order.orderservice.logic.impl;
 
 import java.time.LocalDate;
-import java.util.Objects;
 import java.util.Set;
 
 import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 
 import com.devonfw.app.java.order.general.logic.base.AbstractComponentFacade;
 import com.devonfw.app.java.order.orderservice.common.api.OrderStatus;
-import com.devonfw.app.java.order.orderservice.dataaccess.api.CustomerEntity;
-import com.devonfw.app.java.order.orderservice.dataaccess.api.OrderEntity;
 import com.devonfw.app.java.order.orderservice.logic.api.Orderservice;
 import com.devonfw.app.java.order.orderservice.logic.api.to.CustomerEto;
 import com.devonfw.app.java.order.orderservice.logic.api.to.CustomerSearchCriteriaTo;
@@ -30,9 +24,6 @@ import com.devonfw.app.java.order.orderservice.logic.api.usecase.UcFindOrder;
 import com.devonfw.app.java.order.orderservice.logic.api.usecase.UcManageCustomer;
 import com.devonfw.app.java.order.orderservice.logic.api.usecase.UcManageItem;
 import com.devonfw.app.java.order.orderservice.logic.api.usecase.UcManageOrder;
-import com.devonfw.app.java.order.orderservice.logic.api.usecase.UcManageOrderCto;
-import com.devonfw.module.basic.common.api.query.StringSearchConfigTo;
-import com.devonfw.module.basic.common.api.query.StringSearchOperator;
 
 /**
  * Implementation of component interface of orderservice
@@ -57,9 +48,6 @@ public class OrderserviceImpl extends AbstractComponentFacade implements Orderse
 
 	@Inject
 	private UcManageItem ucManageItem;
-
-	@Inject
-	private UcManageOrderCto ucManageOrderCto;
 
 	@Override
 	public OrderEto findOrder(long id) {
@@ -151,13 +139,7 @@ public class OrderserviceImpl extends AbstractComponentFacade implements Orderse
 
 	@Override
 	public OrderCto saveOrder(OrderCto order) {
-		return ucManageOrderCto.saveOrder(order);
-	}
-
-	@Override
-	public OrderCto findOrderCto(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		return ucManageOrder.saveOrder(order);
 	}
 
 }

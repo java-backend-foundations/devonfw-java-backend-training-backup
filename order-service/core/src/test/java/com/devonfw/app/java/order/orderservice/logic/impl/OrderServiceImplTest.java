@@ -14,6 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.data.domain.Page;
 
 import com.devonfw.app.java.order.orderservice.common.api.OrderStatus;
+import com.devonfw.app.java.order.orderservice.logic.api.Orderservice;
 import com.devonfw.app.java.order.orderservice.logic.api.to.CustomerEto;
 import com.devonfw.app.java.order.orderservice.logic.api.to.ItemEto;
 import com.devonfw.app.java.order.orderservice.logic.api.to.OrderCto;
@@ -25,7 +26,7 @@ import com.devonfw.module.test.common.base.ComponentTest;
 public class OrderServiceImplTest extends ComponentTest {
 
 	@Inject
-	private OrderserviceImpl orderServiceImpl;
+	private Orderservice orderService;
 
 	@Test
 	public void shouldSearchForNameLikeOrdered() {
@@ -35,7 +36,7 @@ public class OrderServiceImplTest extends ComponentTest {
 		String name = "Og";
 
 		//when
-		Page<ItemEto> searchResult = orderServiceImpl.findItemsWithNameLikeOrdered(name);
+		Page<ItemEto> searchResult = orderService.findItemsWithNameLikeOrdered(name);
 
 		//then
 		assertThat(searchResult).hasSize(2);
@@ -48,9 +49,9 @@ public class OrderServiceImplTest extends ComponentTest {
 		prepareItems();
 		String name = "dog";
 		//when
-		orderServiceImpl.raiseItemPriceByOne(name);
+		orderService.raiseItemPriceByOne(name);
 		//then
-		Set<ItemEto> updatedItems = orderServiceImpl.findByName("dog");
+		Set<ItemEto> updatedItems = orderService.findByName("dog");
 		assertThat(updatedItems).extracting("price").containsOnly(6.50);
 
 	}
@@ -59,7 +60,7 @@ public class OrderServiceImplTest extends ComponentTest {
 	public void shouldFindItemByDateAndStatus(){
 		//given
 		CustomerEto owner = new CustomerEto();
-		owner = orderServiceImpl.saveCustomer(owner);
+		owner = orderService.saveCustomer(owner);
 
 		OrderEto orderToFind = new OrderEto();
 		OrderStatus status = OrderStatus.NEW;
@@ -67,16 +68,16 @@ public class OrderServiceImplTest extends ComponentTest {
 		LocalDate creationDate = LocalDate.of(2019, 03, 15);
 		orderToFind.setCreationDate(creationDate);
 		orderToFind.setOwnerId(owner.getId());
-		orderToFind = orderServiceImpl.saveOrder(orderToFind);
+		orderToFind = orderService.saveOrder(orderToFind);
 
 		OrderEto order2 = new OrderEto();
 		order2.setStatus(OrderStatus.PAID);
 		order2.setCreationDate(creationDate);
 		order2.setOwnerId(owner.getId());
-		order2 = orderServiceImpl.saveOrder(order2);
+		order2 = orderService.saveOrder(order2);
 
 		// when
-		Set<OrderEto> foundOrders = orderServiceImpl.findOrdersByCreationDateAndStatus(creationDate, status);
+		Set<OrderEto> foundOrders = orderService.findOrdersByCreationDateAndStatus(creationDate, status);
 
 		// then
 		assertThat(foundOrders).hasSize(1);
@@ -118,7 +119,7 @@ public class OrderServiceImplTest extends ComponentTest {
 				orderCto.setOwner(owner);
 
 				// when
-				OrderCto savedOrderCto = orderServiceImpl.saveOrder(orderCto);
+				OrderCto savedOrderCto = orderService.saveOrder(orderCto);
 
 				// then
 				assertThat(savedOrderCto.getOrder()).extracting("status").containsOnly(status);
@@ -131,19 +132,19 @@ public class OrderServiceImplTest extends ComponentTest {
 		String item1Name = "frog";
 		item1.setName(item1Name);
 		item1.setPrice(12.50);
-		orderServiceImpl.saveItem(item1);
+		orderService.saveItem(item1);
 
 		ItemEto item2 = new ItemEto();
 		String item2Name = "dog";
 		item2.setName(item2Name);
 		item2.setPrice(5.50);
-		orderServiceImpl.saveItem(item2);
+		orderService.saveItem(item2);
 
 		ItemEto item3 = new ItemEto();
 		String item3Name = "cat";
 		item3.setName(item3Name);
 		item3.setPrice(12.50);
-		orderServiceImpl.saveItem(item3);
+		orderService.saveItem(item3);
 	}
 
 }

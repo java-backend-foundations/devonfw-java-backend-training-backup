@@ -26,4 +26,6 @@ public interface UcManageOrder {
 	 */
 	OrderEto saveOrder(OrderEto order);
 
+	OrderCto saveOrder(OrderCto order);
+
 }
