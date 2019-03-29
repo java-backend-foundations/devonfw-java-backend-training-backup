@@ -1,31 +1,24 @@
 package com.devonfw.app.java.order.general.common.base;
 
-import com.devonfw.module.beanmapping.common.api.BeanMapper;
-
 import javax.inject.Inject;
 
+import com.devonfw.module.beanmapping.common.api.BeanMapper;
+
 /**
- * This abstract class provides {@link #getBeanMapper() access} to the {@link BeanMapper}.
+ * This abstract class wraps advanced functionality according dozer mappings
  */
 public abstract class AbstractBeanMapperSupport {
 
-  private BeanMapper beanMapper;
+	/** @see #getBeanMapper() */
+	@Inject
+	private BeanMapper beanMapper;
 
-  /**
-   * @param beanMapper is the {@link BeanMapper} to {@link Inject}
-   */
-  @Inject
-  public void setBeanMapper(BeanMapper beanMapper) {
+	/**
+	 * @return the {@link BeanMapper} instance.
+	 */
+	protected BeanMapper getBeanMapper() {
 
-    this.beanMapper = beanMapper;
-  }
-
-  /**
-   * @return the {@link BeanMapper} instance.
-   */
-  protected BeanMapper getBeanMapper() {
-
-    return this.beanMapper;
-  }
+		return this.beanMapper;
+	}
 
 }
