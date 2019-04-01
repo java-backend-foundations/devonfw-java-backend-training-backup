@@ -27,6 +27,8 @@ public interface UcManageItem {
 	 */
 	ItemEto saveItem(ItemEto item);
 
+	// TODO: mwypych, 2019-04-01: javadocs
+	// TODO: mwypych, 2019-04-01: please change this method to raiseItemPrice(String name, float value). can be different than float
 	void raiseItemPriceByOne(String name);
 
 

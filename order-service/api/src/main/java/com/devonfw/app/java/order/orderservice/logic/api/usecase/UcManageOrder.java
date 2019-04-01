@@ -26,6 +26,8 @@ public interface UcManageOrder {
 	 */
 	OrderEto saveOrder(OrderEto order);
 
+	// TODO: mwypych, 2019-04-01: rename those methods to saveOrderEto and SaveOrderCto
+	// TODO: mwypych, 2019-04-01: javaDoc
 	OrderCto saveOrder(OrderCto order);
 
 }

@@ -51,6 +51,7 @@ public class UcManageItemImpl extends AbstractItemUc implements UcManageItem {
 	}
 
 	@Override
+	// TODO: mwypych, 2019-04-01: Please see comment in interface
 	public void raiseItemPriceByOne(String name) {
 		Set<ItemEto> itemsToReprice = getBeanMapper().mapSet(getItemRepository().findByName(name), ItemEto.class);
 		itemsToReprice.stream().forEach(item -> item.setPrice(item.getPrice() + 1.0));

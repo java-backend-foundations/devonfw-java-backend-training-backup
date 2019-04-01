@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import com.devonfw.app.java.order.orderservice.logic.api.to.CustomerEto;
 import com.devonfw.app.java.order.orderservice.logic.api.to.CustomerSearchCriteriaTo;
 
+// TODO: mwypych, 2019-04-01: Please add Java docs
 public interface UcFindCustomer {
 
 	/**

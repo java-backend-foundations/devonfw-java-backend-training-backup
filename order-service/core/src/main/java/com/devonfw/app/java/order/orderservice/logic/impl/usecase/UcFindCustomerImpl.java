@@ -34,6 +34,8 @@ public class UcFindCustomerImpl extends AbstractCustomerUc implements UcFindCust
 		if (foundEntity.isPresent())
 			return getBeanMapper().map(foundEntity.get(), CustomerEto.class);
 		else
+// TODO: mwypych, 2019-04-01: From my perspective it doesn't make sense to find by id and allow entity not to exists.
+		// If You agree - please replace findById to getOne which always return entity or throws exception
 			return null;
 	}
 
