@@ -68,7 +68,7 @@ public class OrderserviceRestServiceImplTest {
 		when(orderServiceRest.findOrdersByCreationDateAndStatus(date, status)).thenReturn(testData);
 
 		//when
-		 mockMvc.perform(get("/orderservice/v1/order/find/date/status"))
+		 mockMvc.perform(get("/order-service/services/rest/orderservice/v1/order/find/null/NEW"))
          .andExpect(MockMvcResultMatchers.status().isOk())
          .andExpect((ResultMatcher) content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
          .andExpect((ResultMatcher) jsonPath("$.date", is(date)))
