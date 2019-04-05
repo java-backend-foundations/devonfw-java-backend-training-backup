@@ -65,6 +65,7 @@ public class UcManageOrderImpl extends AbstractOrderUc implements UcManageOrder 
 		OrderEto orderEto = order.getOrder();
 		CustomerEntity owner = getCustomerRepository().save(
 				getBeanMapper().map(order.getOwner(), CustomerEntity.class));
+		orderEto.setOwnerId(owner.getId());
 
 		List<ItemEntity> itemEntities = getItemRepository().saveAll(
 				getBeanMapper().mapSet(order.getOrderPositions(), ItemEntity.class));

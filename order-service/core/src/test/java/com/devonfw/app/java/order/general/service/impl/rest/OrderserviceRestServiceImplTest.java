@@ -27,6 +27,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.stubbing.OngoingStubbing;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultMatcher;
@@ -40,6 +41,7 @@ import com.devonfw.app.java.order.orderservice.logic.impl.OrderserviceImpl;
 import com.devonfw.app.java.order.orderservice.service.impl.rest.OrderserviceRestServiceImpl;
 
 @Transactional
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class OrderserviceRestServiceImplTest {
 
 	private MockMvc mockMvc;
