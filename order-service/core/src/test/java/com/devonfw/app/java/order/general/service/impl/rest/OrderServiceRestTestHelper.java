@@ -15,6 +15,7 @@ public class OrderServiceRestTestHelper {
     public static final String DUMMY_NAME = "dummyName";
     public static final String DUMMY_NAME_TWO = "dummyNameTwo";
     public static final Double DUMMY_PRICE = 6.00;
+    public static final Float PRICE_RAISE = 2.00F;
     public static final LocalDate DATE = LocalDate.of(2019, 03, 15);
     public static final OrderStatus ORDER_STATUS = OrderStatus.NEW;
 

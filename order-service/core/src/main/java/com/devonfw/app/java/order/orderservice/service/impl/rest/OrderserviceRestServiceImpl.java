@@ -45,8 +45,8 @@ public class OrderserviceRestServiceImpl implements OrderserviceRestService {
 	}
 
 	@Override
-	public void raiseItemPriceByOne(String name) {
-		this.orderservice.raiseItemPriceByOne(name);
+	public void raiseItemPrice(String name, Float price) {
+		this.orderservice.raiseItemPrice(name, price);
 	}
 
 	@Override

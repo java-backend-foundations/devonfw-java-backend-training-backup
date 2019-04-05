@@ -52,7 +52,7 @@ public interface OrderserviceRestService extends RestService {
 
 	@POST
 	@Path("/items/raisePrice/")
-	public void raiseItemPriceByOne(@PathParam("name") String name);
+	public void raiseItemPrice(@PathParam("name") String name, Float price);
 
 	@GET
 	@Path("/order/find/{date}/{status}")

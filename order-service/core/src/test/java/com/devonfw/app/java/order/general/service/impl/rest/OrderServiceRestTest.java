@@ -77,10 +77,10 @@ public class OrderServiceRestTest extends RestServiceTest {
         OrderCto order = this.helper.createDummyOrderCTO();
         OrderCto createdOrder = this.service.saveOrder(order);
         //when
-        this.service.raiseItemPriceByOne(helper.DUMMY_NAME);
+        this.service.raiseItemPrice(helper.DUMMY_NAME, helper.PRICE_RAISE);
         Set<ItemEto> items = this.service.findItemByName(helper.DUMMY_NAME);
         //then
-        assertThat(items).extracting("price").containsExactly(helper.DUMMY_PRICE+1);
+        assertThat(items).extracting("price").containsExactly(helper.DUMMY_PRICE + helper.PRICE_RAISE);
     }
 
     @Test
