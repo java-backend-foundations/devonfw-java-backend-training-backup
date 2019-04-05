@@ -26,6 +26,12 @@ public interface UcManageOrder {
 	 */
 	OrderEto saveOrder(OrderEto order);
 
+	/**
+	 * Saves a order and store it in the database.
+	 *
+	 * @param order the {@link OrderCto} to create.
+	 * @return the new {@link OrderCto} that has been saved with ID and version.
+	 */
 	OrderCto saveOrder(OrderCto order);
 
 }

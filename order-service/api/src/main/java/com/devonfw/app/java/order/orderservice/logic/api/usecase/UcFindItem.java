@@ -26,8 +26,20 @@ public interface UcFindItem {
 	 */
 	Page<ItemEto> findItems(ItemSearchCriteriaTo criteria);
 
+	/**
+	 *
+	 * Returns a set of items that match name
+	 * @param name
+	 * @return the {@link Set} of matching {@link ItemEto}s
+	 */
 	Set<ItemEto> findByName(String name);
 
+	/**
+	 * Returns a paginated list of Items matching the search criteria.
+	 *
+	 * @param name
+	 * @return the {@link List} of matching {@link ItemEto}s.
+	 */
 	Page<ItemEto> findItemsWithNameLikeOrdered(String name);
 
 }

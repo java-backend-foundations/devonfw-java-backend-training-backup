@@ -28,6 +28,13 @@ public interface UcFindOrder {
 	 */
 	Page<OrderEto> findOrders(OrderSearchCriteriaTo criteria);
 
+	/**
+	 * Returns a set of Orders matching the paramaeters
+	 *
+	 * @param creationDate
+	 * @param status
+	 * @return the {@link Set} of matching {@link OrderEto}s.
+	 */
 	Set<OrderEto> findOrdersByCreationDateAndStatus(LocalDate creationDate, OrderStatus status);
 
 }

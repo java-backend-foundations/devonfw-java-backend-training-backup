@@ -11,18 +11,36 @@ import com.devonfw.module.security.common.base.accesscontrol.AccessControlConfig
 @Named
 public class ApplicationAccessControlConfig extends AccessControlConfig {
 
+  /**
+   * The constant APP_ID.
+   */
   public static final String APP_ID = "order-service";
 
   private static final String PREFIX = APP_ID + ".";
 
+  /**
+   * The constant PERMISSION_FIND_BINARY_OBJECT.
+   */
   public static final String PERMISSION_FIND_BINARY_OBJECT = PREFIX + "FindBinaryObject";
 
+  /**
+   * The constant PERMISSION_SAVE_BINARY_OBJECT.
+   */
   public static final String PERMISSION_SAVE_BINARY_OBJECT = PREFIX + "SaveBinaryObject";
 
+  /**
+   * The constant PERMISSION_DELETE_BINARY_OBJECT.
+   */
   public static final String PERMISSION_DELETE_BINARY_OBJECT = PREFIX + "DeleteBinaryObject";
 
+  /**
+   * The constant GROUP_READ_MASTER_DATA.
+   */
   public static final String GROUP_READ_MASTER_DATA = PREFIX + "ReadMasterData";
 
+  /**
+   * The constant GROUP_ADMIN.
+   */
   public static final String GROUP_ADMIN = PREFIX + "Admin";
 
   /**

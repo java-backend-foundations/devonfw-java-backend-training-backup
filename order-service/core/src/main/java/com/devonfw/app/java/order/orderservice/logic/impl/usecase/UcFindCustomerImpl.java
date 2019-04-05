@@ -30,11 +30,9 @@ public class UcFindCustomerImpl extends AbstractCustomerUc implements UcFindCust
 	@Override
 	public CustomerEto findCustomer(long id) {
 		LOG.debug("Get Customer with id {} from database.", id);
-		Optional<CustomerEntity> foundEntity = getCustomerRepository().findById(id);
-		if (foundEntity.isPresent())
-			return getBeanMapper().map(foundEntity.get(), CustomerEto.class);
-		else
-			return null;
+		CustomerEntity foundEntity = getCustomerRepository().getOne(id);
+			return getBeanMapper().map(foundEntity, CustomerEto.class);
+
 	}
 
 	@Override

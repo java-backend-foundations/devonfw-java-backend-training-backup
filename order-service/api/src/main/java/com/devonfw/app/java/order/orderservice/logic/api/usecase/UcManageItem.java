@@ -27,7 +27,14 @@ public interface UcManageItem {
 	 */
 	ItemEto saveItem(ItemEto item);
 
-	void raiseItemPriceByOne(String name);
+
+	/**
+	 * Raises the price of a given item by a given amount
+	 *
+	 * @param name
+	 * @param value
+	 */
+	void raiseItemPrice(String name, Float value);
 
 
 

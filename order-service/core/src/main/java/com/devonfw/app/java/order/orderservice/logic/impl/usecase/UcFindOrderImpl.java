@@ -34,6 +34,7 @@ public class UcFindOrderImpl extends AbstractOrderUc implements UcFindOrder {
 	public OrderEto findOrder(long id) {
 		LOG.debug("Get Order with id {} from database.", id);
 		Optional<OrderEntity> foundEntity = getOrderRepository().findById(id);
+		// TODO: mwypych, 2019-04-01: Please see comment in previous uc about findById
 		if (foundEntity.isPresent())
 			return getBeanMapper().map(foundEntity.get(), OrderEto.class);
 		else
