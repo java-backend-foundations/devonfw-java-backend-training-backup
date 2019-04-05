@@ -10,7 +10,6 @@ import com.devonfw.app.java.order.orderservice.common.api.OrderStatus;
 import com.devonfw.app.java.order.orderservice.logic.api.to.OrderEto;
 import com.devonfw.app.java.order.orderservice.logic.api.to.OrderSearchCriteriaTo;
 
-// TODO: mwypych, 2019-04-01: Please add javaDocs
 public interface UcFindOrder {
 
 	/**
@@ -29,6 +28,13 @@ public interface UcFindOrder {
 	 */
 	Page<OrderEto> findOrders(OrderSearchCriteriaTo criteria);
 
+	/**
+	 * Returns a set of Orders matching the paramaeters
+	 *
+	 * @param creationDate
+	 * @param status
+	 * @return the {@link Set} of matching {@link OrderEto}s.
+	 */
 	Set<OrderEto> findOrdersByCreationDateAndStatus(LocalDate creationDate, OrderStatus status);
 
 }
