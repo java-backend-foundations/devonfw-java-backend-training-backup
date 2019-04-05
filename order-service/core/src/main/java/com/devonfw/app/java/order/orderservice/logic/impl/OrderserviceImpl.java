@@ -128,8 +128,8 @@ public class OrderserviceImpl extends AbstractComponentFacade implements Orderse
 	}
 
 	@Override
-	public void raiseItemPriceByOne(String name) {
-		ucManageItem.raiseItemPriceByOne(name);
+	public void raiseItemPrice(String name, Float price) {
+		ucManageItem.raiseItemPrice(name, price);
 	}
 
 	@Override

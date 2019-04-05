@@ -26,8 +26,12 @@ public interface UcManageOrder {
 	 */
 	OrderEto saveOrder(OrderEto order);
 
-	// TODO: mwypych, 2019-04-01: rename those methods to saveOrderEto and SaveOrderCto
-	// TODO: mwypych, 2019-04-01: javaDoc
+	/**
+	 * Saves a order and store it in the database.
+	 *
+	 * @param order the {@link OrderCto} to create.
+	 * @return the new {@link OrderCto} that has been saved with ID and version.
+	 */
 	OrderCto saveOrder(OrderCto order);
 
 }

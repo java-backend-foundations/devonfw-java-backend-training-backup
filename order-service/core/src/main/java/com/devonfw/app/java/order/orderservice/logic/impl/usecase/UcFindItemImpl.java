@@ -38,13 +38,9 @@ public class UcFindItemImpl extends AbstractItemUc implements UcFindItem {
 	@Override
 	public ItemEto findItem(long id) {
 		LOG.debug("Get Item with id {} from database.", id);
-		Optional<ItemEntity> foundEntity = getItemRepository().findById(id);
-// TODO: mwypych, 2019-04-01: From my perspective it doesn't make sense to find by id and allow entity not to exists.
-// If You agree - please replace findById to getOne which always return entity or throws exception
-		if (foundEntity.isPresent())
-			return getBeanMapper().map(foundEntity.get(), ItemEto.class);
-		else
-			return null;
+		ItemEntity foundEntity = getItemRepository().getOne(id);
+			return getBeanMapper().map(foundEntity, ItemEto.class);
+
 	}
 
 	@Override

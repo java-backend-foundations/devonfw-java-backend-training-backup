@@ -27,14 +27,14 @@ public interface UcManageItem {
 	 */
 	ItemEto saveItem(ItemEto item);
 
-	// TODO: mwypych, 2019-04-01: please change this method to raiseItemPrice(String name, float value). can be different than float
 
 	/**
-	 * 
+	 * Raises the price of a given item by a given amount
+	 *
 	 * @param name
 	 * @param value
 	 */
-	void raiseItemPriceByOne(String name, Float value);
+	void raiseItemPrice(String name, Float value);
 
 
 

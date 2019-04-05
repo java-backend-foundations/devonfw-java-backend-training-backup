@@ -48,8 +48,9 @@ public class OrderServiceImplTest extends ComponentTest {
 		//given
 		prepareItems();
 		String name = "dog";
+		Float price = 1.0F;
 		//when
-		orderService.raiseItemPriceByOne(name);
+		orderService.raiseItemPrice(name, price);
 		//then
 		Set<ItemEto> updatedItems = orderService.findByName("dog");
 		assertThat(updatedItems).extracting("price").containsOnly(6.50);

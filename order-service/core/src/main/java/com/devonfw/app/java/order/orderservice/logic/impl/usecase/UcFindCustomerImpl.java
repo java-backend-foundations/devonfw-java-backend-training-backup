@@ -30,13 +30,9 @@ public class UcFindCustomerImpl extends AbstractCustomerUc implements UcFindCust
 	@Override
 	public CustomerEto findCustomer(long id) {
 		LOG.debug("Get Customer with id {} from database.", id);
-		Optional<CustomerEntity> foundEntity = getCustomerRepository().findById(id);
-		if (foundEntity.isPresent())
-			return getBeanMapper().map(foundEntity.get(), CustomerEto.class);
-		else
-// TODO: mwypych, 2019-04-01: From my perspective it doesn't make sense to find by id and allow entity not to exists.
-		// If You agree - please replace findById to getOne which always return entity or throws exception
-			return null;
+		CustomerEntity foundEntity = getCustomerRepository().getOne(id);
+			return getBeanMapper().map(foundEntity, CustomerEto.class);
+
 	}
 
 	@Override
