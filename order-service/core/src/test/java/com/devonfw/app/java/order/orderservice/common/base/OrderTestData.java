@@ -14,4 +14,5 @@ public interface OrderTestData {
   OrderEtoBuilder ORDER_PAID = OrderEtoBuilder.anOrderEto()
       .withCreationDate(CREATION_DATE)
       .withStatus(OrderStatus.PAID);
+
 }

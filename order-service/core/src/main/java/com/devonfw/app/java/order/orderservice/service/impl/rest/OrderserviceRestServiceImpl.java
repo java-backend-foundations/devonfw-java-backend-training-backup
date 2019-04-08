@@ -59,6 +59,4 @@ public class OrderserviceRestServiceImpl implements OrderserviceRestService {
 		return this.orderservice.saveOrder(order);
 	}
 
-
-
 }
