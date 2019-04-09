@@ -2,6 +2,7 @@ package com.devonfw.app.java.order.general.service.impl.config;
 
 import javax.inject.Inject;
 import javax.servlet.Filter;
+import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -20,7 +21,6 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
-import com.devonfw.app.java.order.general.common.impl.security.CsrfRequestMatcher;
 import com.devonfw.module.security.common.impl.rest.AuthenticationSuccessHandlerSendingOkHttpStatusCode;
 import com.devonfw.module.security.common.impl.rest.JsonUsernamePasswordAuthenticationFilter;
 import com.devonfw.module.security.common.impl.rest.LogoutSuccessHandlerReturningOkHttpStatusCode;
@@ -41,6 +41,9 @@ public abstract class BaseWebSecurityConfig extends WebSecurityConfigurerAdapter
 
   @Inject
   private PasswordEncoder passwordEncoder;
+
+  @Inject
+  private DataSource dataSource;
 
   private CorsFilter getCorsFilter() {
 
@@ -72,6 +75,7 @@ public abstract class BaseWebSecurityConfig extends WebSecurityConfigurerAdapter
     http
         //
         .userDetailsService(this.userDetailsService)
+//        .authenticationProvider(authenticationProvider())
         // define all urls that are not to be secured
         .authorizeRequests().antMatchers(unsecuredResources).permitAll().anyRequest().authenticated().and()
 
@@ -141,10 +145,16 @@ public abstract class BaseWebSecurityConfig extends WebSecurityConfigurerAdapter
   @Inject
   public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 
-    auth.inMemoryAuthentication().withUser("waiter").password(this.passwordEncoder.encode("waiter")).roles("Waiter")
-        .and().withUser("cook").password(this.passwordEncoder.encode("cook")).roles("Cook").and().withUser("barkeeper")
-        .password(this.passwordEncoder.encode("barkeeper")).roles("Barkeeper").and().withUser("chief")
-        .password(this.passwordEncoder.encode("chief")).roles("Chief");
-  }
+//    auth.inMemoryAuthentication().withUser("waiter").password(this.passwordEncoder.encode("waiter")).authorities("Waiter")
+//        .and().withUser("cook").password(this.passwordEncoder.encode("cook")).authorities("Cook").and().withUser("barkeeper")
+//        .password(this.passwordEncoder.encode("barkeeper")).authorities("Barkeeper").and().withUser("chief")
+//        .password(this.passwordEncoder.encode("chief")).authorities("Chief");
 
+    auth.jdbcAuthentication().dataSource(dataSource)
+    .usersByUsernameQuery("select username, password, enabled"
+        + " from users where username=?")
+    .authoritiesByUsernameQuery("select username, authority "
+        + "from authorities where username=?")
+    .passwordEncoder(passwordEncoder);
+  }
 }

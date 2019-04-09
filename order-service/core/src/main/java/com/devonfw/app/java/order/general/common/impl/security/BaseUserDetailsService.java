@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -33,7 +34,7 @@ public class BaseUserDetailsService implements UserDetailsService {
 
   /** Logger instance. */
   private static final Logger LOG = LoggerFactory.getLogger(BaseUserDetailsService.class);
-
+ 
   private AuthenticationManagerBuilder amBuilder;
 
   private AccessControlProvider accessControlProvider;
@@ -83,7 +84,8 @@ public class BaseUserDetailsService implements UserDetailsService {
 
     Collection<String> roles = new ArrayList<>();
     // TODO for a reasonable application you need to retrieve the roles of the user from a central IAM system
-    roles.add(username);
+    UserDetails user = getAmBuilder().getDefaultUserDetailsService().loadUserByUsername(username);
+    roles.addAll(user.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()));
     return roles;
   }
 
